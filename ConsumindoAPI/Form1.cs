@@ -58,9 +58,28 @@ public partial class Form1 : Form
         }
     }
 
-    private void button4_Click(object sender, EventArgs e)
+    private async void button4_Click(object sender, EventArgs e)
     {
+        Random randNum = new Random();
+        Produto prod = new Produto();
+        prod.Nome = "Novo Produto " + DateTime.Now.Second.ToString();
+        prod.Descricao = "Novo Produto descricao " + DateTime.Now.Second.ToString();
+        prod.CategoriaId = 1;
+        prod.ImagemUrl = "novaImagem" + DateTime.Now.Second.ToString() + ".jpg";
+        prod.Preco = randNum.Next(100);
+        URI = textBox1.Text;
 
+        try
+        {
+            var acessaAPI = new AcessaAPIService();
+            var resultado = await acessaAPI.AddProduto(URI, accessToken, prod);
+            MessageBox.Show(resultado.ToString());
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Erro : " + ex.Message);
+        }
     }
 
 
