@@ -1,3 +1,5 @@
+using System.Configuration;
+
 namespace ConsumindoAPI;
 
 public partial class Form1 : Form
@@ -30,5 +32,17 @@ public partial class Form1 : Form
         {
             MessageBox.Show("Erro : " + ex.Message);
         }
+    }
+
+
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        _urlBase = ConfigurationManager.AppSettings["UrlBase"];
+        var email = ConfigurationManager.AppSettings["UserID"];
+        var password = ConfigurationManager.AppSettings["AccessKey"];
+        var confirmPassword = password;
+
+        var urlbase = _urlBase + "autoriza/login";
     }
 }
