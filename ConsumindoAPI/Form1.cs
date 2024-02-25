@@ -109,6 +109,25 @@ public partial class Form1 : Form
         }
     }
 
+    private async void button6_Click(object sender, EventArgs e)
+    {
+        URI = textBox1.Text;
+        InputBox();
+        if (codigoProduto != -1)
+        {
+            try
+            {
+                var acessaAPI = new AcessaAPIService();
+                var resultado = await acessaAPI.DeleteProduto(URI, accessToken, codigoProduto);
+                MessageBox.Show(resultado.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro : " + ex.Message);
+            }
+        }
+    }
+
     private void InputBox()
     {
         /* usando a função VB.Net para exibir um prompt para o usuário informar a senha */
@@ -184,5 +203,4 @@ public partial class Form1 : Form
             }
         }
     }
-
 }
