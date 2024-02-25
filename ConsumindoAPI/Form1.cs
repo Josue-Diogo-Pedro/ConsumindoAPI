@@ -82,6 +82,32 @@ public partial class Form1 : Form
         }
     }
 
+    private async void button5_Click(object sender, EventArgs e)
+    {
+        Random randNum = new Random();
+        Produto prod = new Produto();
+        prod.Descricao = "Novo Produto descricao alterada " + DateTime.Now.Second.ToString();
+        prod.Nome = "Novo Produto alterado" + DateTime.Now.Second.ToString();
+        prod.CategoriaId = 1;
+        prod.ImagemUrl = "novo alterado" + DateTime.Now.Second.ToString() + ".jpg";
+        prod.Preco = randNum.Next(100); // atualizando o preço do produto
+        InputBox();
+        if (codigoProduto != -1)
+        {
+            prod.ProdutoId = codigoProduto;
+            URI = textBox1.Text + "/" + prod.ProdutoId;
+            try
+            {
+                var acessaAPI = new AcessaAPIService();
+                var resultado = await acessaAPI.UpdateProduto(URI, accessToken, prod);
+                MessageBox.Show(resultado.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro : " + ex.Message);
+            }
+        }
+    }
 
     private void InputBox()
     {
@@ -159,5 +185,4 @@ public partial class Form1 : Form
         }
     }
 
-    
 }
