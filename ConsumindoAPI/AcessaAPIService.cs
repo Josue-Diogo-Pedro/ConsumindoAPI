@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace ConsumindoAPI;
@@ -69,6 +70,24 @@ public class AcessaAPIService
             else
             {
                 return "Falha ao incluir produto " + result.StatusCode;
+            }
+        }
+    }
+
+    public async Task<string> UpdateProduto(string URI, AccessToken accessToken, Produto produto)
+    {
+        using (var client = new HttpClient())
+        {
+            GetHeaderTokenAuthorization(client, accessToken);
+            //PUT api/produtos/id produto
+            HttpResponseMessage responseMessage = await client.PutAsJsonAsync(URI, produto);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return "Produto atualizado";
+            }
+            else
+            {
+                return "Falha ao atualizar o produto : " + responseMessage.StatusCode;
             }
         }
     }
