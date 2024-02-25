@@ -37,7 +37,49 @@ public partial class Form1 : Form
         }
     }
 
+    private async void button3_Click(object sender, EventArgs e)
+    {
+        BindingSource bsDados = new BindingSource();
+        InputBox();
+        if (codigoProduto != -1)
+        {
+            try
+            {
+                URI = textBox1.Text + "/" + codigoProduto;
+                var acessaAPI = new AcessaAPIService();
+                var produto = await acessaAPI.GetProdutoById(URI, accessToken);
+                bsDados.DataSource = produto;
+                dataGridView1.DataSource = bsDados;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro : " + ex.Message);
+            }
+        }
+    }
 
+    private void button4_Click(object sender, EventArgs e)
+    {
+
+    }
+
+
+    private void InputBox()
+    {
+        /* usando a função VB.Net para exibir um prompt para o usuário informar a senha */
+        string Prompt = "Informe o código do Produto.";
+        string Titulo = "www.macoratti.net";
+        string Resultado = Microsoft.VisualBasic.Interaction.InputBox(Prompt, Titulo, "9", 600, 350);
+        /* verifica se o resultado é uma string vazia o que indica que foi cancelado. */
+        if (Resultado != "")
+        {
+            codigoProduto = Convert.ToInt32(Resultado);
+        }
+        else
+        {
+            codigoProduto = -1;
+        }
+    }
 
     private async void button1_Click(object sender, EventArgs e)
     {
@@ -97,4 +139,6 @@ public partial class Form1 : Form
             }
         }
     }
+
+    
 }

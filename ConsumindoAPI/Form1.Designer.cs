@@ -55,6 +55,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(514, 23);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "https://localhost:7098/api/produtos";
             // 
             // button1
             // 
@@ -94,6 +95,7 @@
             this.button3.TabIndex = 5;
             this.button3.Text = "Obter Produto Por ID";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -103,6 +105,7 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "Incluir Produto";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
