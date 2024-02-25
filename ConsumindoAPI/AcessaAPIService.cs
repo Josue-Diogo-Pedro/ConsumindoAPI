@@ -92,6 +92,26 @@ public class AcessaAPIService
         }
     }
 
+    public async Task<string> DeleteProduto(string URI, AccessToken accessToken, int codProduto)
+    {
+        using (var client = new HttpClient())
+        {
+            GetHeaderTokenAuthorization(client, accessToken);
+            client.BaseAddress = new Uri(URI);
+
+            //DELETE api/produtos/id
+            HttpResponseMessage responseMessage = await client.DeleteAsync($"{URI}/{codProduto}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return "Produto excluído com sucesso";
+            }
+            else
+            {
+                return "Falha ao excluir o produto  : " + responseMessage.StatusCode;
+            }
+        }
+    }
+
     public static void GetHeaderTokenAuthorization(HttpClient client, AccessToken accessToken)
     {
         client.DefaultRequestHeaders.Accept.Clear();
